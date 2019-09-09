@@ -1,5 +1,10 @@
 # dd
 
+## vue
+```
+ https://cn.vuejs.org/v2/guide/
+ https://router.vuejs.org/zh/
+```
 ## Project setup
 ```
 npm install
