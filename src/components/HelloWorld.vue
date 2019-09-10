@@ -49,15 +49,25 @@ export default {
     });
   },
   methods: {
+    alterInfo(msg){
+      dd.device.notification.alert({
+        message:msg,
+        title: "提示",
+        buttonName: "确定",
+        onSuccess : function() {},
+        onFail : function() {}
+      });
+    },
     click() {
       this.requestAuthCode();
+      this.login(this.authCode);
     },
     requestAuthCode() {
       dd.runtime.permission.requestAuthCode({
         corpId: "ding251335d31062a7f535c2f4657eb6378f",
         onSuccess: function(result) {
+          this.alterInfo(result.code);
           this.authCode = result.code;
-          this.login(this.authCode);
         },
         onFail : function() {
           alert("error");
@@ -67,33 +77,21 @@ export default {
     },
 
     login(authCode){
+
       axios.post('http://yufusong.ding.vaiwan.com/dingding/login?authCode=' + authCode) .then((res) => {
+        this.alterInfo("登陆。。。")
         var userId = res.data.result.userId;
         if (userId == ""){
-          dd.device.notification.alert({
-            message:"登录失败",
-            title: "提示",
-            buttonName: "确定",
-            onSuccess : function() {},
-            onFail : function() {}
-          });
-
+          this.alterInfo("登陆失败")
         }else{
 
           this.userInfo.userId = res.data.result.userId;
           this.userInfo.userName = res.data.result.userName;
-
-          dd.device.notification.alert({
-            message: this.userInfo.userId + " == " + this.userInfo.userName ,
-            title: "提示",
-            buttonName: "确定",
-            onSuccess : function() {},
-            onFail : function() {}
-          });
+         this.alterInfo(this.userInfo.userId + " == " + this.userInfo.userName )
         }
 
       }, function (err) {
-        alert(err);
+        this.alterInfo(err)
       });
     },
   },
