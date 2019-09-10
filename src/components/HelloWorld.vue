@@ -26,7 +26,6 @@ export default {
     };
   },
   created: function () {
-    console.log("======>>bg")
     dd.runtime.permission.requestAuthCode({
       corpId: "ding251335d31062a7f535c2f4657eb6378f",
       onSuccess: function(result) {
@@ -37,15 +36,14 @@ export default {
           onSuccess : function() {
 
           },
-          onFail : function(err) {}
+          onFail : function() {}
         });
       },
-      onFail : function(err) {
+      onFail : function() {
         alert("error");
       }
 
     });
-    console.log("======>>ed")
   },
   methods: {
     click() {
