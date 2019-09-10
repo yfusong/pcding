@@ -66,11 +66,11 @@ export default {
       dd.runtime.permission.requestAuthCode({
         corpId: "ding251335d31062a7f535c2f4657eb6378f",
         onSuccess: function(result) {
-          this.alterInfo(result.code);
           this.authCode = result.code;
+          this.alterInfo(this.authCode);
         },
-        onFail : function() {
-          alert("error");
+        onFail : function(err) {
+          this.alterInfo(err);
         }
 
       });
@@ -79,10 +79,10 @@ export default {
     login(authCode){
 
       axios.post('http://yufusong.ding.vaiwan.com/dingding/login?authCode=' + authCode) .then((res) => {
-        this.alterInfo("登陆。。。")
+        this.alterInfo("登陆。。。" + authCode);
         var userId = res.data.result.userId;
         if (userId == ""){
-          this.alterInfo("登陆失败")
+          this.alterInfo("登陆失败");
         }else{
 
           this.userInfo.userId = res.data.result.userId;
