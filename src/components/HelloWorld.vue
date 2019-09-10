@@ -30,7 +30,7 @@ export default {
       corpId: "ding251335d31062a7f535c2f4657eb6378f",
       onSuccess: function(result) {
         dd.device.notification.alert({
-          message: "success" + result + result.code +"_"+ result[1],
+          message: "success" + result.code ,
           title: "提示",
           buttonName: "收到",
           onSuccess : function() {
