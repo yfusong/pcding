@@ -21,7 +21,10 @@ export default {
       ggg: [],
       params: {
         curentPage: 1,
+
       },
+      authCode:"",
+      userInfo:{userId:0,userName:''},
       result: {},
     };
   },
@@ -30,7 +33,7 @@ export default {
       corpId: "ding251335d31062a7f535c2f4657eb6378f",
       onSuccess: function(result) {
         dd.device.notification.alert({
-          message: "success" + result.code ,
+          message: "success " + result.code ,
           title: "提示",
           buttonName: "收到",
           onSuccess : function() {
@@ -47,16 +50,52 @@ export default {
   },
   methods: {
     click() {
-      alert(33333);
-      axios.get('url/ttt', {  params: this.params })
-              .then((res) => {
-               /*console.log(res);*/
-                this.result = res;
-              }, function () {
-               /* console.log(err);*/
-              });
+      this.requestAuthCode();
     },
-    gggg() {},
+    requestAuthCode() {
+      dd.runtime.permission.requestAuthCode({
+        corpId: "ding251335d31062a7f535c2f4657eb6378f",
+        onSuccess: function(result) {
+          this.authCode = result.code;
+          this.login(this.authCode);
+        },
+        onFail : function() {
+          alert("error");
+        }
+
+      });
+    },
+
+    login(authCode){
+      axios.post('http://yufusong.ding.vaiwan.com/dingding/login?authCode=' + authCode) .then((res) => {
+        var userId = res.data.result.userId;
+        if (userId == ""){
+          dd.device.notification.alert({
+            message:"登录失败",
+            title: "提示",
+            buttonName: "确定",
+            onSuccess : function() {},
+            onFail : function() {}
+          });
+
+        }else{
+
+          this.userInfo.userId = res.data.result.userId;
+          this.userInfo.userName = res.data.result.userName;
+
+          dd.device.notification.alert({
+            message: this.userInfo.userId + " == " + this.userInfo.userName ,
+            title: "提示",
+            buttonName: "确定",
+            onSuccess : function() {},
+            onFail : function() {}
+          });
+        }
+
+      }, function (err) {
+        alert(err);
+      });
+    },
   },
 }
 </script>

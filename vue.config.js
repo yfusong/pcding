@@ -1,4 +1,4 @@
-/*
+
 const path = require('path')
 
 // eslint-disable-next-line no-unused-vars
@@ -14,10 +14,10 @@ module.exports = {
   assetsDir: 'static',
   publicPath: './',
   devServer: {
-    host: 'dd.szlcsc.com',
-    port: 443,
+    host: 'dingui.szlcsc.com',
+    port: 8082,
     open: false,
-    public: 'dd.szlcsc.com',
+    public: 'dingui.szlcsc.com',
   },
   configureWebpack: (config) => {
     if (process.env.NODE_ENV !== 'production') {
@@ -26,4 +26,3 @@ module.exports = {
   },
 };
 
-*/
