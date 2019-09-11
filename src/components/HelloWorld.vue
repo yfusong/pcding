@@ -80,7 +80,7 @@ export default {
           this.userInfo.userId = res.data.result.userId;
           this.userInfo.userName = res.data.result.userName;
           this.$store.dispatch('Set_USER_INFO', this.userInfo);
-          
+
          this.alterInfo(this.$store.state.userInfo.userId + " == " + this.$store.state.userInfo.userName )
         }
 
