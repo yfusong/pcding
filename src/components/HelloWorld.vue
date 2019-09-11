@@ -29,18 +29,12 @@ export default {
     };
   },
   created: function () {
+    const that = this;
     dd.runtime.permission.requestAuthCode({
       corpId: "ding251335d31062a7f535c2f4657eb6378f",
       onSuccess: function(result) {
-        dd.device.notification.alert({
-          message: "success " + result.code ,
-          title: "提示",
-          buttonName: "收到",
-          onSuccess : function() {
-
-          },
-          onFail : function() {}
-        });
+        that.authCode = result.code;
+        that.login(this.authCode);
       },
       onFail : function() {
         alert("error");
