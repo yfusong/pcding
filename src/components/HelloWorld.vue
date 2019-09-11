@@ -21,7 +21,6 @@ export default {
       ggg: [],
       params: {
         curentPage: 1,
-
       },
       authCode:"",
       userInfo:{userId:0,userName:''},
@@ -78,10 +77,11 @@ export default {
         if (userId == ""){
           this.alterInfo("登陆失败");
         }else{
-
           this.userInfo.userId = res.data.result.userId;
           this.userInfo.userName = res.data.result.userName;
-         this.alterInfo(this.userInfo.userId + " == " + this.userInfo.userName )
+          this.$store.dispatch('Set_USER_INFO', this.userInfo);
+          
+         this.alterInfo(this.$store.state.userInfo.userId + " == " + this.$store.state.userInfo.userName )
         }
 
       }, function (err) {
