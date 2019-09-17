@@ -7,9 +7,9 @@
 </template>
 
 <script>
-
-  import * as dd from 'dingtalk-jsapi'
+import * as dd from 'dingtalk-jsapi'
 import axios from 'axios';
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -33,6 +33,7 @@ export default {
       corpId: "ding251335d31062a7f535c2f4657eb6378f",
       onSuccess: function(result) {
         that.authCode = result.code;
+        that.alterInfo("===  " + result.code);
         that.login(this.authCode);
       },
       onFail : function() {
@@ -81,7 +82,7 @@ export default {
           this.userInfo.userName = res.data.result.userName;
           this.$store.dispatch('Set_USER_INFO', this.userInfo);
 
-         this.alterInfo(this.$store.state.userInfo.userId + " == " + this.$store.state.userInfo.userName )
+          this.alterInfo(this.$store.state.userInfo.userId + " == " + this.$store.state.userInfo.userName )
         }
 
       }, function (err) {
